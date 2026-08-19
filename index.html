@@ -81,7 +81,7 @@
   .hero .kicker{color:var(--blue-deep);font-size:.8rem}
   .hero h1{margin:.02em 0 0}
   .alondra{font-size:clamp(3.3rem,15vw,4.9rem);line-height:1.06;display:block;color:var(--gold);padding:.08em 0}
-  .sub-baut{color:var(--gold);font-size:.92rem;letter-spacing:.24em;margin-top:-.05em}
+  .sub-baut{font-size:1.02rem;letter-spacing:.24em;margin-top:.05em}
   .hero .sub{color:var(--ink);font-size:1.08rem;margin-top:1em}
   .hero .sub b{color:var(--ink);font-weight:600}
 
@@ -180,14 +180,18 @@
 
   @media (max-width:420px){body{font-size:17px}.card{padding:34px 20px}.count .u{min-width:64px}}
   @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
-  .alondra,.intro-name .script,h2.titulo,.saludo .nombre-inv,.familia,.sub-baut,.pases-num,.venue{
+  .alondra,.intro-name .script,h2.titulo,.saludo .nombre-inv,.familia,.pases-num,.venue{
     background-image:linear-gradient(100deg,#a9822f 0%,#e7cd86 20%,#fff6da 40%,#dcbf72 56%,#b8912f 74%,#f7e6b4 100%);
     background-size:220% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
     filter:drop-shadow(0 1px 4px rgba(214,176,86,.55));animation:goldshine 11s linear infinite}
   @keyframes goldshine{to{background-position:-220% center}}
-  @media (prefers-reduced-motion:reduce){.alondra,.intro-name .script,h2.titulo,.saludo .nombre-inv,.familia,.sub-baut,.pases-num,.venue{animation:none}}
+  @media (prefers-reduced-motion:reduce){.alondra,.intro-name .script,h2.titulo,.saludo .nombre-inv,.familia,.pases-num,.venue{animation:none}}
   .venue{font-family:"Cormorant Garamond",serif;font-weight:600;text-transform:uppercase;letter-spacing:.18em;font-size:2.2rem;color:var(--gold);text-align:center;margin:.15em 0 .05em}
   .venue-sub{display:block;font-style:italic;color:var(--ink-soft);font-size:1.05rem;margin-bottom:.2em}
+  .sub-baut{background-image:linear-gradient(100deg,#c2557a 0%,#ec8fb0 20%,#ffdcea 40%,#e386a6 56%,#c85a80 74%,#f7bcd2 100%);
+    background-size:220% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+    filter:drop-shadow(0 1px 3px rgba(214,120,150,.5));animation:goldshine 11s linear infinite}
+  @media (prefers-reduced-motion:reduce){.sub-baut{animation:none}}
 </style>
 </head>
 <body>

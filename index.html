@@ -274,6 +274,8 @@
     <div class="toolbar">
       <input id="buscar" type="text" placeholder="Buscar por nombre…">
       <button class="btn mini" id="refrescar">Actualizar</button>
+      <button class="btn mini solid" id="panelNuevo">+ Crear invitaciones</button>
+      <button class="btn mini" id="panelSalir">Cerrar sesión</button>
     </div>
     <div style="overflow:auto"><table class="tabla" id="tabla"><thead><tr><th>Invitado</th><th>Pases</th><th>Estado</th><th>Asistirán</th><th>Confirmó</th><th></th></tr></thead><tbody id="tbody"></tbody></table></div>
   </div>
@@ -318,8 +320,8 @@ const CONFIG = {
   // ---- SUPABASE (aquí se guardan las confirmaciones) ----
   // Pega tu Project URL y tu clave "anon public" (Settings -> API en Supabase).
   supabase: {
-    url: "https://TU-PROYECTO.supabase.co",
-    key: "TU_ANON_KEY"
+    url: "https://ltqtvxullzttaxmaoygd.supabase.co",
+    key: "sb_publishable_JLsxSWLvG9nbj6bjqFzHvA_hxtLcYvB"
   },
 
   // Contraseña para abrir el panel (cámbiala).
@@ -338,6 +340,7 @@ function sbHeaders(extra){ return Object.assign({apikey:SB.key,Authorization:"Be
 async function sbGet(qs){ const r=await fetch(SB.url+"/rest/v1/invitados?"+qs,{headers:sbHeaders()}); if(!r.ok) throw new Error(await r.text()); return r.json(); }
 async function sbInsert(o){ const r=await fetch(SB.url+"/rest/v1/invitados",{method:"POST",headers:sbHeaders({Prefer:"return=representation"}),body:JSON.stringify(o)}); if(!r.ok) throw new Error(await r.text()); return (await r.json())[0]; }
 async function sbUpdate(id,o){ const r=await fetch(SB.url+"/rest/v1/invitados?id=eq."+id,{method:"PATCH",headers:sbHeaders({Prefer:"return=representation"}),body:JSON.stringify(o)}); if(!r.ok) throw new Error(await r.text()); return (await r.json())[0]; }
+async function sbDelete(id){ const r=await fetch(SB.url+"/rest/v1/invitados?id=eq."+id,{method:"DELETE",headers:sbHeaders()}); if(!r.ok) throw new Error(await r.text()); }
 
 /* ---------- RUTEO ---------- */
 if (params.has("panel")) { arrancarPanel(); }
@@ -532,14 +535,48 @@ function arrancarGenerador(){
 function arrancarPanel(){
   $("#sobre").style.display="none"; $("#contenido").style.display="none";
   $("#panel").classList.add("show");
+
+  const abrirPanel = () => { $("#pinGate").style.display="none"; $("#panelBody").style.display="block"; cargar(); };
+  const recordado = () => { try{ return localStorage.getItem("alondra_panel")==="1"; }catch(e){ return false; } };
+  const recordar  = () => { try{ localStorage.setItem("alondra_panel","1"); }catch(e){} };
+
+  // Si no hay contraseña, o ya entró antes en este dispositivo, abre directo (sin volver a preguntar).
+  if(!CONFIG.panelPIN || recordado()){ abrirPanel(); }
+
   const entrar = () => {
-    if($("#pin").value === CONFIG.panelPIN){ $("#pinGate").style.display="none"; $("#panelBody").style.display="block"; cargar(); }
+    if($("#pin").value === CONFIG.panelPIN){ recordar(); abrirPanel(); }
     else toast("Contraseña incorrecta");
   };
   $("#pinBtn").addEventListener("click",entrar);
   $("#pin").addEventListener("keydown",e=>{ if(e.key==="Enter") entrar(); });
   $("#refrescar").addEventListener("click",cargar);
   $("#buscar").addEventListener("input",pintarTabla);
+  $("#panelNuevo").addEventListener("click",()=>{ location.href = BASE+"?generador"; });
+  $("#panelSalir").addEventListener("click",()=>{ try{ localStorage.removeItem("alondra_panel"); }catch(e){} location.reload(); });
+  $("#tbody").addEventListener("click", onTablaClick);
+
+  async function onTablaClick(e){
+    const btn = e.target.closest("button[data-act]");
+    if(!btn) return;
+    const id = btn.getAttribute("data-id");
+    const row = datos.find(d=>String(d.id)===String(id));
+    if(!row) return;
+    if(btn.dataset.act==="borrar"){
+      if(!confirm("¿Borrar a "+row.nombre+" de la lista?\nEsto no se puede deshacer.")) return;
+      try{ await sbDelete(id); toast("Invitado borrado"); cargar(); }
+      catch(err){ toast("No se pudo borrar. Falta el permiso DELETE en Supabase."); }
+    } else if(btn.dataset.act==="editar"){
+      const nuevoNombre = prompt("Nombre del invitado:", row.nombre);
+      if(nuevoNombre===null) return;
+      const nuevoPases = prompt("Número de pases:", row.pases);
+      if(nuevoPases===null) return;
+      const p = parseInt(nuevoPases,10);
+      try{
+        await sbUpdate(id, {nombre:(nuevoNombre.trim()||row.nombre), pases:(isNaN(p)?row.pases:p)});
+        toast("Invitado actualizado"); cargar();
+      }catch(err){ toast("No se pudo actualizar"); }
+    }
+  }
 
   let datos=[];
   async function cargar(){
@@ -573,7 +610,12 @@ function arrancarPanel(){
       const link = BASE+"?nombre="+encodeURIComponent(d.nombre)+"&pases="+encodeURIComponent(d.pases)+"&id="+d.id;
       const wamsg="¡Con mucho cariño te invitamos al bautizo de Alondra! 🕊️%0A"+encodeURIComponent(d.nombre)+", tienes "+d.pases+" pase(s).%0AAquí tu invitación: "+encodeURIComponent(link);
       return "<tr><td>"+escapeHtml(d.nombre)+"</td><td>"+d.pases+"</td><td>"+badge+"</td><td>"+(d.asistiran!=null?d.asistiran:"—")+"</td><td>"+fecha+"</td>"
-        +'<td><div class="acts"><a class="btn wa mini" target="_blank" rel="noopener" href="https://wa.me/?text='+wamsg+'">Reenviar</a><a class="btn mini" target="_blank" rel="noopener" href="'+link+'">Ver</a></div></td></tr>';
+        +'<td><div class="acts">'
+        +'<a class="btn wa mini" target="_blank" rel="noopener" href="https://wa.me/?text='+wamsg+'">Reenviar</a>'
+        +'<a class="btn mini" target="_blank" rel="noopener" href="'+link+'">Ver</a>'
+        +'<button class="btn mini" data-act="editar" data-id="'+d.id+'">Editar</button>'
+        +'<button class="btn mini" data-act="borrar" data-id="'+d.id+'" style="border-color:#d98da0;color:#b23a53">Borrar</button>'
+        +'</div></td></tr>';
     }).join("") || '<tr><td colspan="6" style="text-align:center;color:var(--ink-soft);padding:20px">Aún no hay invitados. Créalos desde el generador.</td></tr>';
   }
   function escapeHtml(s){ return (s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }

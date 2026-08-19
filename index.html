@@ -192,6 +192,28 @@
     background-size:220% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
     filter:drop-shadow(0 1px 3px rgba(214,120,150,.5));animation:goldshine 11s linear infinite}
   @media (prefers-reduced-motion:reduce){.sub-baut{animation:none}}
+  .rmodal{position:fixed;inset:0;z-index:70;display:none;align-items:center;justify-content:center;background:rgba(90,70,80,.5);padding:20px}
+  .rmodal.show{display:flex}
+  .rmodal-card{background:var(--cream);border:1px solid #e6dccb;border-radius:20px;box-shadow:0 24px 60px rgba(90,70,80,.4);max-width:360px;width:100%;padding:26px 22px 30px;text-align:center;position:relative}
+  .rmodal-card::after{content:"";position:absolute;inset:10px;border:1px solid var(--gold-soft);border-radius:13px;opacity:.5;pointer-events:none}
+  .rmodal-x{position:absolute;top:8px;right:14px;background:none;border:none;font-size:1.9rem;line-height:1;color:var(--ink-soft);cursor:pointer;z-index:2}
+  .rmodal-title{font-family:"Parisienne",cursive;color:var(--gold);font-size:2.1rem;line-height:1}
+  .rmodal-sub{color:var(--ink);font-size:1rem;margin:.3em 0 1.2em}
+  .sobre-wrap{perspective:850px;height:210px;display:flex;align-items:flex-end;justify-content:center}
+  .sobre3d{position:relative;width:246px;height:154px}
+  .s-back{position:absolute;inset:0;border-radius:10px;background:linear-gradient(160deg,#f2d7de,#e6c0cb);border:1px solid #ddb4bf}
+  .s-bill{position:absolute;left:22px;right:22px;bottom:12px;z-index:4;transform:translateY(46px);opacity:0}
+  .s-bill svg{width:100%;height:auto;display:block;filter:drop-shadow(0 5px 9px rgba(0,0,0,.18))}
+  .s-front{position:absolute;inset:0;border-radius:10px;z-index:3;background:linear-gradient(160deg,#f4dbe1,#e9c6d0);clip-path:polygon(0 42%,50% 100%,100% 42%,100% 100%,0 100%);border:1px solid #ddb4bf}
+  .s-flap{position:absolute;top:0;left:0;right:0;height:56%;z-index:5;transform-origin:top;transform:rotateX(0);background:linear-gradient(160deg,#efd0d8,#e2b4c0);clip-path:polygon(0 0,100% 0,50% 100%);backface-visibility:hidden}
+  .s-seal{position:absolute;left:50%;top:42%;width:54px;height:58px;margin:-29px 0 0 -27px;background:var(--crest) center/contain no-repeat;filter:drop-shadow(0 3px 5px rgba(120,90,100,.3))}
+  .sobre3d.play .s-flap{animation:flapOpen 7s ease forwards}
+  .sobre3d.play .s-bill{animation:billUp 7s ease forwards}
+  .sobre3d.play .s-seal{animation:sealFade 7s ease forwards}
+  @keyframes flapOpen{0%,8%{transform:rotateX(0)}15%,86%{transform:rotateX(-172deg)}94%,100%{transform:rotateX(0)}}
+  @keyframes billUp{0%,13%{transform:translateY(46px);opacity:0}20%{opacity:1}27%,84%{transform:translateY(-74px);opacity:1}92%{transform:translateY(46px);opacity:.3}100%{transform:translateY(46px);opacity:0}}
+  @keyframes sealFade{0%,8%{opacity:1}15%,88%{opacity:0}95%,100%{opacity:1}}
+  @media (prefers-reduced-motion:reduce){.sobre3d.play .s-flap,.sobre3d.play .s-bill,.sobre3d.play .s-seal{animation:none}}
 </style>
 </head>
 <body>
@@ -239,7 +261,7 @@
 
   <section class="card reveal">
     <div class="padres">
-      <div><div class="rol">Mis padres</div><div class="quien">Arturo Pacheco Contreras<br>Carla Argüello Hernandez</div></div>
+      <div><div class="rol">Mis padres</div><div class="quien">Arturo Pacheco Contreras<br>Carla Argüello Hernández</div></div>
       <div><div class="rol">Mis padrinos</div><div class="quien">Horacio Orozco Ortiz<br>Jacaranda Cobos Hernández</div></div>
     </div>
   </section>
@@ -294,6 +316,29 @@
 
   <div class="foot"><div class="ornament md"></div><span class="despedida">Te esperamos</span><span class="familia">Familia Pacheco Arguello</span></div>
 </main>
+
+<div id="regaloModal" class="rmodal" aria-hidden="true">
+  <div class="rmodal-card">
+    <button class="rmodal-x" id="regaloCerrar" aria-label="Cerrar">&times;</button>
+    <div class="rmodal-title">Lluvia de sobres</div>
+    <div class="rmodal-sub">Tu presencia es nuestro mejor regalo.<br>Si deseas obsequiar, un sobre será muy bienvenido.</div>
+    <div class="sobre-wrap"><div class="sobre3d" id="sobre3d">
+      <div class="s-back"></div>
+      <div class="s-bill">
+        <svg viewBox="0 0 220 112" xmlns="http://www.w3.org/2000/svg">
+          <rect x="3" y="3" width="214" height="106" rx="9" fill="#cfead4" stroke="#8ec7a0" stroke-width="2"/>
+          <rect x="12" y="12" width="196" height="88" rx="6" fill="none" stroke="#a9d6b8" stroke-width="1.4"/>
+          <circle cx="110" cy="56" r="27" fill="#eef8f1" stroke="#8ec7a0" stroke-width="2"/>
+          <text x="110" y="69" text-anchor="middle" font-family="Georgia,serif" font-size="32" fill="#4f9d6a" font-weight="bold">$</text>
+          <text x="26" y="34" font-family="Georgia,serif" font-size="15" fill="#4f9d6a" font-weight="bold">$</text>
+          <text x="186" y="94" font-family="Georgia,serif" font-size="15" fill="#4f9d6a" font-weight="bold">$</text>
+        </svg>
+      </div>
+      <div class="s-front"></div>
+      <div class="s-flap"><div class="s-seal"></div></div>
+    </div></div>
+  </div>
+</div>
 
 <!-- GENERADOR -->
 <section id="generador">
@@ -413,7 +458,7 @@ function arrancarInvitacion(){
 
   $("#mapIglesia").href = CONFIG.mapaIglesia;
   $("#mapRecep").href   = CONFIG.mapaRecep;
-  $("#regalo").href     = CONFIG.regalo;
+  setupRegaloModal();
 
   buildCalendarLinks(); buildMiniCal(); startCountdown();
   setupSobre(); setupReveal(); setupMusic(); setupPetals();
@@ -677,6 +722,15 @@ function arrancarPanel(){
   function escapeHtml(s){ return (s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
 }
 
+function setupRegaloModal(){
+  const modal=$("#regaloModal"), sob=$("#sobre3d");
+  if(!modal) return;
+  const abrir=(e)=>{ if(e) e.preventDefault(); modal.classList.add("show"); sob.classList.remove("play"); void sob.offsetWidth; sob.classList.add("play"); };
+  const cerrar=()=>{ modal.classList.remove("show"); sob.classList.remove("play"); };
+  const btn=$("#regalo"); if(btn){ btn.removeAttribute("href"); btn.style.cursor="pointer"; btn.addEventListener("click",abrir); }
+  $("#regaloCerrar").addEventListener("click",cerrar);
+  modal.addEventListener("click",e=>{ if(e.target===modal) cerrar(); });
+}
 function toast(t){ const el=$("#toast"); el.textContent=t; el.classList.add("show"); setTimeout(()=>el.classList.remove("show"),1900); }
 </script>
 </body>

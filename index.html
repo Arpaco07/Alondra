@@ -9,127 +9,45 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cormorant+SC:wght@500;600&display=swap" rel="stylesheet">
 <style>
-  /* ============================================================
-     CONFIGURACIÓN RÁPIDA  ->  también puedes editar el bloque JS
-     de más abajo (CONFIG). Aquí solo están los colores.
-     ============================================================ */
   :root{
-    --blush:#e8a9b8;        /* rosa */
-    --rose:#c06b82;         /* rosa profundo (acentos, script) */
-    --blue:#a9c3d4;         /* azul polvo */
-    --blue-deep:#6f93a6;    /* azul profundo */
-    --cream:#fbf7f1;        /* tarjeta */
-    --paper:#f3eade;        /* fondo página */
-    --paper-2:#ece0d2;
-    --gold:#c9a24b;         /* líneas finas / sello */
-    --gold-soft:#e4c98a;
-    --ink:#5a4a52;          /* texto */
-    --ink-soft:#8a7a80;
-    --stripe:#f6e3e8;
+    --blush:#e8a9b8; --rose:#c06b82; --blue:#a9c3d4; --blue-deep:#6f93a6;
+    --cream:#fbf7f1; --paper:#f3eade; --paper-2:#ece0d2; --gold:#c9a24b;
+    --gold-soft:#e4c98a; --ink:#5a4a52; --ink-soft:#8a7a80;
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0}
-  body{
-    background:var(--paper);
-    color:var(--ink);
-    font-family:"Cormorant Garamond",Georgia,serif;
-    font-size:18px;line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
-  }
+  body{background:var(--paper);color:var(--ink);font-family:"Cormorant Garamond",Georgia,serif;font-size:18px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
   a{color:inherit}
   .script{font-family:"Parisienne",cursive}
   .sc{font-family:"Cormorant SC",serif;letter-spacing:.14em;text-transform:uppercase}
+  body::before{content:"";position:fixed;inset:0;z-index:-2;background:radial-gradient(1200px 600px at 50% -10%, #fff6f1 0%, transparent 60%),repeating-linear-gradient(90deg, var(--paper) 0 22px, var(--paper-2) 22px 44px);opacity:.55}
 
-  /* -------- fondo con textura de rayas suaves -------- */
-  body::before{
-    content:"";position:fixed;inset:0;z-index:-2;
-    background:
-      radial-gradient(1200px 600px at 50% -10%, #fff6f1 0%, transparent 60%),
-      repeating-linear-gradient(90deg, var(--paper) 0 22px, var(--paper-2) 22px 44px);
-    opacity:.55;
-  }
-
-  /* ============================ SOBRE / INTRO ============================ */
-  #sobre{
-    position:fixed;inset:0;z-index:50;
-    display:flex;flex-direction:column;align-items:center;justify-content:center;
-    background:
-      radial-gradient(900px 500px at 50% 30%, #fbeef0 0%, #efdfe4 55%, #e6d3d9 100%);
-    transition:opacity .9s ease, visibility .9s ease;
-  }
+  /* SOBRE */
+  #sobre{position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(900px 500px at 50% 30%, #fbeef0 0%, #efdfe4 55%, #e6d3d9 100%);transition:opacity .9s ease, visibility .9s ease}
   #sobre.abierto{opacity:0;visibility:hidden;pointer-events:none}
-  .env{
-    position:relative;width:min(78vw,340px);height:min(52vw,226px);
-    filter:drop-shadow(0 24px 40px rgba(120,80,90,.28));
-    cursor:pointer;
-  }
-  .env .body{
-    position:absolute;inset:0;border-radius:14px;
-    background:linear-gradient(160deg,#f4dfe4,#ecc9d2);
-    border:1px solid #e3b9c4;
-  }
-  .env .pocket{
-    position:absolute;inset:0;border-radius:14px;overflow:hidden;z-index:3;
-    background:linear-gradient(160deg,#f4dfe4,#e9c3ce);
-    clip-path:polygon(0 38%,50% 100%,100% 38%,100% 100%,0 100%);
-    border:1px solid #e3b9c4;
-  }
-  .env .flap{
-    position:absolute;top:0;left:0;right:0;height:64%;z-index:4;
-    background:linear-gradient(160deg,#f0d2da,#e4b6c2);
-    clip-path:polygon(0 0,100% 0,50% 100%);
-    transform-origin:top;transform:rotateX(0deg);
-    transition:transform .9s cubic-bezier(.6,.05,.3,1);backface-visibility:hidden;
-  }
+  .env{position:relative;width:min(78vw,340px);height:min(52vw,226px);filter:drop-shadow(0 24px 40px rgba(120,80,90,.28));cursor:pointer}
+  .env .body{position:absolute;inset:0;border-radius:14px;background:linear-gradient(160deg,#f4dfe4,#ecc9d2);border:1px solid #e3b9c4}
+  .env .pocket{position:absolute;inset:0;border-radius:14px;overflow:hidden;z-index:3;background:linear-gradient(160deg,#f4dfe4,#e9c3ce);clip-path:polygon(0 38%,50% 100%,100% 38%,100% 100%,0 100%);border:1px solid #e3b9c4}
+  .env .flap{position:absolute;top:0;left:0;right:0;height:64%;z-index:4;background:linear-gradient(160deg,#f0d2da,#e4b6c2);clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transform:rotateX(0deg);transition:transform .9s cubic-bezier(.6,.05,.3,1);backface-visibility:hidden}
   #sobre.abierto .flap{transform:rotateX(180deg);z-index:2}
-  .env .card-peek{
-    position:absolute;left:8%;right:8%;top:16%;bottom:8%;z-index:2;
-    background:var(--cream);border-radius:8px;border:1px solid #eadfce;
-    transition:transform 1s ease .25s;
-    display:flex;align-items:center;justify-content:center;
-  }
+  .env .card-peek{position:absolute;left:8%;right:8%;top:16%;bottom:8%;z-index:2;background:var(--cream);border-radius:8px;border:1px solid #eadfce;transition:transform 1s ease .25s;display:flex;align-items:center;justify-content:center}
   #sobre.abierto .card-peek{transform:translateY(-42%)}
-  .seal{
-    position:absolute;left:50%;top:50%;z-index:6;
-    width:88px;height:88px;margin:-44px 0 0 -44px;
-    transition:opacity .4s ease, transform .5s ease;
-  }
+  .seal{position:absolute;left:50%;top:50%;z-index:6;width:88px;height:88px;margin:-44px 0 0 -44px;transition:opacity .4s ease, transform .5s ease}
   #sobre.abierto .seal{opacity:0;transform:scale(.6) rotate(-12deg)}
-  .toca{
-    margin-top:34px;color:var(--rose);letter-spacing:.28em;font-size:.82rem;
-    animation:pulse 2.2s ease-in-out infinite;
-  }
+  .toca{margin-top:34px;color:var(--rose);letter-spacing:.28em;font-size:.82rem;animation:pulse 2.2s ease-in-out infinite}
   .toca .sc{font-size:.82rem}
   @keyframes pulse{0%,100%{opacity:.45}50%{opacity:1}}
   .intro-name{position:absolute;bottom:12%;left:0;right:0;text-align:center;color:var(--rose)}
   .intro-name .script{font-size:clamp(2.4rem,10vw,3.4rem);line-height:1}
 
-  /* ============================ CONTENIDO ============================ */
+  /* CONTENIDO */
   #contenido{opacity:0;transition:opacity 1s ease .3s}
   #contenido.visible{opacity:1}
   .wrap{max-width:640px;margin:0 auto;padding:0 22px}
-
-  .card{
-    background:var(--cream);
-    border:1px solid #eadfce;
-    border-radius:18px;
-    box-shadow:0 18px 40px rgba(120,80,90,.10);
-    padding:38px 26px;
-    margin:26px auto;
-    position:relative;
-    max-width:600px;
-  }
-  .card::after{
-    content:"";position:absolute;inset:10px;border:1px solid var(--gold-soft);
-    border-radius:12px;opacity:.5;pointer-events:none;
-  }
-
-  /* revelado al hacer scroll */
+  .card{background:var(--cream);border:1px solid #eadfce;border-radius:18px;box-shadow:0 18px 40px rgba(120,80,90,.10);padding:38px 26px;margin:26px auto;position:relative;max-width:600px}
+  .card::after{content:"";position:absolute;inset:10px;border:1px solid var(--gold-soft);border-radius:12px;opacity:.5;pointer-events:none}
   .reveal{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s ease}
   .reveal.in{opacity:1;transform:none}
-
-  /* -------- HERO -------- */
   .hero{text-align:center;padding-top:46px}
   .crest{width:150px;height:auto;margin:0 auto 6px;display:block}
   .hero .kicker{color:var(--blue-deep);font-size:.8rem}
@@ -137,82 +55,55 @@
   .hero h1 .script{font-size:clamp(3.4rem,17vw,5.4rem);line-height:.9;display:block}
   .hero .sub{color:var(--ink-soft);font-size:1rem;margin-top:.2em}
   .hero .sub b{color:var(--rose);font-weight:600}
-
   .divider{display:flex;align-items:center;justify-content:center;gap:12px;margin:22px 0;color:var(--gold)}
   .divider::before,.divider::after{content:"";height:1px;width:60px;background:linear-gradient(90deg,transparent,var(--gold-soft))}
   .divider::after{background:linear-gradient(90deg,var(--gold-soft),transparent)}
   .divider svg{width:22px;height:22px}
-
-  /* saludo personalizado */
   .saludo{text-align:center;font-size:1.15rem;color:var(--ink)}
   .saludo .nombre-inv{color:var(--rose);font-family:"Parisienne",cursive;font-size:1.9rem;display:block;margin-top:.1em}
-
   h2.titulo{font-family:"Parisienne",cursive;color:var(--rose);font-weight:400;text-align:center;font-size:2.4rem;margin:.1em 0 .3em}
   .label{color:var(--blue-deep);font-size:.78rem;text-align:center;display:block;margin-bottom:6px}
   .dato{text-align:center;font-size:1.15rem}
   .dato .fuerte{font-size:1.35rem;color:var(--ink);display:block}
   .verse{font-style:italic;text-align:center;color:var(--ink-soft);max-width:420px;margin:0 auto}
   .verse cite{display:block;font-style:normal;color:var(--blue-deep);font-size:.8rem;letter-spacing:.14em;margin-top:8px;text-transform:uppercase;font-family:"Cormorant SC",serif}
-
   .padres{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;text-align:center;margin-top:8px}
   .padres > div{min-width:160px}
   .padres .rol{color:var(--rose);font-family:"Parisienne",cursive;font-size:1.5rem}
   .padres .quien{color:var(--ink);font-size:1rem;line-height:1.5}
-
-  /* botones */
-  .btn{
-    display:inline-flex;align-items:center;gap:9px;justify-content:center;
-    padding:13px 22px;border-radius:999px;border:1px solid var(--gold);
-    background:#fff;color:var(--rose);font-family:"Cormorant SC",serif;
-    letter-spacing:.12em;font-size:.82rem;text-transform:uppercase;text-decoration:none;
-    cursor:pointer;transition:transform .15s ease,box-shadow .2s ease,background .2s ease;
-    box-shadow:0 6px 16px rgba(201,162,75,.14);
-  }
+  .btn{display:inline-flex;align-items:center;gap:9px;justify-content:center;padding:13px 22px;border-radius:999px;border:1px solid var(--gold);background:#fff;color:var(--rose);font-family:"Cormorant SC",serif;letter-spacing:.12em;font-size:.82rem;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:transform .15s ease,box-shadow .2s ease,background .2s ease;box-shadow:0 6px 16px rgba(201,162,75,.14)}
   .btn:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(201,162,75,.22)}
   .btn:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
   .btn.solid{background:var(--rose);color:#fff;border-color:var(--rose)}
   .btn.wa{background:#25925a;color:#fff;border-color:#25925a}
   .btn svg{width:17px;height:17px}
+  .btn:disabled{opacity:.5;cursor:default;transform:none}
   .btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:18px}
-
-  /* cuenta regresiva */
   .count{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-  .count .u{
-    background:linear-gradient(160deg,#fff,#fbeef1);
-    border:1px solid #f0d7de;border-radius:14px;padding:14px 8px;min-width:74px;text-align:center;
-  }
+  .count .u{background:linear-gradient(160deg,#fff,#fbeef1);border:1px solid #f0d7de;border-radius:14px;padding:14px 8px;min-width:74px;text-align:center}
   .count .n{font-size:2rem;color:var(--rose);line-height:1;font-weight:600}
   .count .l{font-size:.68rem;color:var(--blue-deep);letter-spacing:.12em;text-transform:uppercase;font-family:"Cormorant SC",serif}
-
-  /* calendario */
   .cal{max-width:320px;margin:0 auto;background:#fff;border:1px solid #f0d7de;border-radius:14px;padding:14px}
   .cal table{width:100%;border-collapse:collapse;text-align:center}
   .cal th{color:var(--blue-deep);font-size:.72rem;font-family:"Cormorant SC",serif;padding:6px 0}
   .cal td{padding:7px 0;font-size:1rem;color:var(--ink)}
   .cal td.on{background:var(--rose);color:#fff;border-radius:50%;font-weight:600}
-  .cal td.muted{color:#cbbfc4}
-
-  /* pases */
   .pases-card{text-align:center}
   .pases-num{font-family:"Parisienne",cursive;font-size:5rem;color:var(--rose);line-height:.9;margin:.05em 0}
   .pases-txt{color:var(--ink-soft)}
-
+  .confirm-input{width:90px;text-align:center;padding:10px;border:1px solid #e3d3c5;border-radius:10px;font-family:inherit;font-size:1.2rem;color:var(--ink);margin:6px}
+  .estado-msg{margin-top:12px;font-size:1.1rem}
+  .estado-msg b{color:var(--rose)}
   .foot{text-align:center;color:var(--ink-soft);font-size:.9rem;padding:30px 16px 60px}
   .foot .script{color:var(--rose);font-size:1.8rem;display:block}
-
-  /* petalos */
   .petal{position:fixed;top:-30px;z-index:1;pointer-events:none;opacity:.75}
-
-  /* música */
-  #musicBtn{position:fixed;right:14px;bottom:14px;z-index:40;width:48px;height:48px;border-radius:50%;
-    border:1px solid var(--gold);background:#fff;color:var(--rose);display:none;align-items:center;justify-content:center;
-    cursor:pointer;box-shadow:0 8px 20px rgba(120,80,90,.2)}
+  #musicBtn{position:fixed;right:14px;bottom:14px;z-index:40;width:48px;height:48px;border-radius:50%;border:1px solid var(--gold);background:#fff;color:var(--rose);display:none;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 8px 20px rgba(120,80,90,.2)}
   #musicBtn.show{display:flex}
   #musicBtn svg{width:22px;height:22px}
 
-  /* ============================ GENERADOR ============================ */
-  #generador{display:none;max-width:620px;margin:0 auto;padding:24px 22px 70px}
-  #generador.show{display:block}
+  /* GENERADOR + PANEL */
+  #generador,#panel{display:none;max-width:820px;margin:0 auto;padding:24px 22px 70px}
+  #generador.show,#panel.show{display:block}
   .gen-card{background:var(--cream);border:1px solid #eadfce;border-radius:18px;padding:26px 22px;box-shadow:0 18px 40px rgba(120,80,90,.10)}
   .gen-card h2{margin-top:0}
   .field{margin:14px 0}
@@ -223,30 +114,38 @@
   .out.show{display:block}
   .out .link{word-break:break-all;font-size:.9rem;color:var(--blue-deep);background:#f7f0e8;padding:10px;border-radius:8px;margin:8px 0}
   .hint{color:var(--ink-soft);font-size:.92rem}
-  .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--rose);color:#fff;
-    padding:11px 20px;border-radius:999px;font-size:.9rem;opacity:0;transition:.3s;z-index:60;pointer-events:none}
+  .warn{background:#fdf1dd;border:1px solid #f0d7a8;color:#8a6a1f;border-radius:10px;padding:12px 14px;font-size:.92rem;margin-bottom:14px}
+  .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--rose);color:#fff;padding:11px 20px;border-radius:999px;font-size:.9rem;opacity:0;transition:.3s;z-index:60;pointer-events:none}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:12px;margin:16px 0}
+  .stat{background:#fff;border:1px solid #f0d7de;border-radius:14px;padding:14px;text-align:center}
+  .stat .n{font-size:2rem;color:var(--rose);font-weight:600;line-height:1}
+  .stat .l{font-size:.7rem;color:var(--blue-deep);text-transform:uppercase;letter-spacing:.08em;font-family:"Cormorant SC",serif;margin-top:4px}
+  .stat.big{background:linear-gradient(160deg,#eef4f7,#dfeaf0);border-color:#c5d7e1}
+  .stat.big .n{color:var(--blue-deep);font-size:2.4rem}
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:10px 0 6px}
+  .toolbar input{flex:1;min-width:160px;padding:10px 12px;border:1px solid #e3d3c5;border-radius:10px;font-family:inherit;font-size:1rem}
+  table.tabla{width:100%;border-collapse:collapse;font-size:.95rem}
+  table.tabla th{text-align:left;color:var(--blue-deep);font-family:"Cormorant SC",serif;font-size:.7rem;letter-spacing:.06em;padding:8px;border-bottom:1px solid #eadfce;white-space:nowrap}
+  table.tabla td{padding:8px;border-bottom:1px solid #f2e8dc;vertical-align:middle}
+  .badge{display:inline-block;padding:3px 10px;border-radius:999px;font-size:.72rem;font-family:"Cormorant SC",serif;letter-spacing:.04em;white-space:nowrap}
+  .badge.ok{background:#e2f4ea;color:#1f7a4d}
+  .badge.pend{background:#fdf1dd;color:#a97a1f}
+  .badge.no{background:#f7e2e6;color:#b23a53}
+  .mini{padding:6px 12px;font-size:.7rem}
+  .acts{display:flex;gap:6px;flex-wrap:wrap}
 
-  @media (max-width:420px){
-    body{font-size:17px}
-    .card{padding:32px 20px}
-    .count .u{min-width:64px}
-  }
-  @media (prefers-reduced-motion:reduce){
-    *{animation:none!important;transition:none!important}
-    .reveal{opacity:1;transform:none}
-  }
+  @media (max-width:420px){body{font-size:17px}.card{padding:32px 20px}.count .u{min-width:64px}}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
 </style>
 </head>
 <body>
 
-<!-- ============================ SOBRE / INTRO ============================ -->
+<!-- SOBRE -->
 <div id="sobre" role="button" tabindex="0" aria-label="Toca para abrir la invitación">
   <div class="env" id="env">
     <div class="body"></div>
-    <div class="card-peek">
-      <svg viewBox="0 0 200 240" width="70"><use href="#crestSvg"/></svg>
-    </div>
+    <div class="card-peek"><svg viewBox="0 0 200 240" width="70"><use href="#crestSvg"/></svg></div>
     <div class="pocket"></div>
     <div class="flap"></div>
     <svg class="seal" viewBox="0 0 200 240"><use href="#crestSvg"/></svg>
@@ -255,10 +154,8 @@
   <div class="toca"><span class="sc">Toca para abrir</span></div>
 </div>
 
-<!-- ============================ CONTENIDO ============================ -->
+<!-- CONTENIDO -->
 <main id="contenido">
-
-  <!-- HERO -->
   <section class="hero wrap">
     <svg class="crest" viewBox="0 0 200 240" aria-hidden="true"><use href="#crestSvg"/></svg>
     <div class="kicker sc">Con la bendición de Dios</div>
@@ -269,44 +166,28 @@
 
   <div class="divider" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 21s-7-4.5-7-9.5A3.5 3.5 0 0 1 12 8a3.5 3.5 0 0 1 7 3.5C19 16.5 12 21 12 21z"/></svg></div>
 
-  <!-- SALUDO PERSONALIZADO -->
   <section class="card reveal" id="saludoCard">
     <p class="saludo">Con mucho cariño invitamos a
       <span class="nombre-inv" id="nombreInvitado">nuestros seres queridos</span>
-      a acompañarnos en este día tan especial.
-    </p>
+      a acompañarnos en este día tan especial.</p>
   </section>
 
-  <!-- CEREMONIA -->
   <section class="card reveal">
     <span class="label sc">La ceremonia</span>
     <h2 class="titulo">Parroquia del Sagrado Corazón</h2>
     <p class="dato"><span class="fuerte">12:00 pm</span></p>
-    <div class="btns">
-      <a class="btn" id="mapIglesia" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-6-5-6-10a6 6 0 1 1 12 0c0 5-6 10-6 10z"/><circle cx="12" cy="11" r="2"/></svg>
-        Ver ubicación</a>
-    </div>
+    <div class="btns"><a class="btn" id="mapIglesia" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-6-5-6-10a6 6 0 1 1 12 0c0 5-6 10-6 10z"/><circle cx="12" cy="11" r="2"/></svg>Ver ubicación</a></div>
     <div class="divider" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="12" r="3"/></svg></div>
-    <p class="verse">"Dejad a los niños venir a mí, y no se lo impidáis; porque de los tales es el reino de los cielos."
-      <cite>Mateo 19:14</cite></p>
+    <p class="verse">"Dejad a los niños venir a mí, y no se lo impidáis; porque de los tales es el reino de los cielos."<cite>Mateo 19:14</cite></p>
   </section>
 
-  <!-- PADRINOS -->
   <section class="card reveal">
     <div class="padres">
-      <div>
-        <div class="rol">Mis padres</div>
-        <div class="quien">Arturo Pacheco Contreras<br>Carla Arguello Hernández</div>
-      </div>
-      <div>
-        <div class="rol">Mis padrinos</div>
-        <div class="quien">Horacio Orozco Ortiz<br>Jacaranda Cobos Hernández</div>
-      </div>
+      <div><div class="rol">Mis padres</div><div class="quien">Arturo Pacheco Contreras<br>Carla Arguello Hernández</div></div>
+      <div><div class="rol">Mis padrinos</div><div class="quien">Horacio Orozco Ortiz<br>Jacaranda Cobos Hernández</div></div>
     </div>
   </section>
 
-  <!-- CUENTA REGRESIVA -->
   <section class="card reveal">
     <span class="label sc">Aparta la fecha</span>
     <h2 class="titulo">Faltan</h2>
@@ -318,25 +199,16 @@
     </div>
     <div class="divider" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="12" r="3"/></svg></div>
     <div class="cal" id="cal"></div>
-    <div class="btns">
-      <a class="btn" id="gcal" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>
-        Agregar a mi calendario</a>
-    </div>
+    <div class="btns"><a class="btn" id="gcal" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>Agregar a mi calendario</a></div>
   </section>
 
-  <!-- RECEPCIÓN -->
   <section class="card reveal">
     <span class="label sc">Recepción</span>
     <h2 class="titulo">Casona</h2>
     <p class="dato">Salón de eventos<span class="fuerte">2:00 pm</span></p>
     <div class="btns">
-      <a class="btn" id="mapRecep" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-6-5-6-10a6 6 0 1 1 12 0c0 5-6 10-6 10z"/><circle cx="12" cy="11" r="2"/></svg>
-        Ver ubicación</a>
-      <a class="btn" id="regalo" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="8" width="18" height="13" rx="1"/><path d="M12 8v13M3 12h18M12 8S9 3 6.5 4.5 9 8 12 8zM12 8s3-5 5.5-3.5S15 8 12 8z"/></svg>
-        Sugerencias de regalo</a>
+      <a class="btn" id="mapRecep" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-6-5-6-10a6 6 0 1 1 12 0c0 5-6 10-6 10z"/><circle cx="12" cy="11" r="2"/></svg>Ver ubicación</a>
+      <a class="btn" id="regalo" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="8" width="18" height="13" rx="1"/><path d="M12 8v13M3 12h18M12 8S9 3 6.5 4.5 9 8 12 8zM12 8s3-5 5.5-3.5S15 8 12 8z"/></svg>Sugerencias de regalo</a>
     </div>
   </section>
 
@@ -345,152 +217,204 @@
     <span class="label sc">Reservado para ti</span>
     <div class="pases-num" id="pasesNum">2</div>
     <p class="pases-txt">Pases reservados. Agradecemos confirmar tu asistencia con anticipación.</p>
-    <div class="btns">
-      <a class="btn wa" id="confirmar" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.2 1.1-1.7 1.2-.5.1-1 .1-3.2-.7-2.7-1-4.4-3.8-4.5-4-.1-.2-1.1-1.4-1.1-2.7 0-1.3.7-1.9.9-2.2.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.5c-.1.2-.3.3-.1.6.1.3.7 1.1 1.4 1.7.9.8 1.7 1 2 1.2.2.1.4.1.6-.1l.6-.7c.2-.2.3-.2.6-.1l1.9.9c.3.1.5.2.5.4.1.2.1.8-.1 1.4z"/></svg>
-        Confirmar asistencia</a>
+
+    <div id="confirmInicio" class="btns">
+      <button class="btn wa" id="btnAbrirConfirm"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2z"/></svg>Confirmar asistencia</button>
     </div>
+
+    <div id="confirmPaso1" style="display:none">
+      <p style="margin:6px 0">¿Podrás acompañarnos?</p>
+      <div class="btns"><button class="btn solid" id="btnSi">Sí, ahí estaré</button><button class="btn" id="btnNo">No podré asistir</button></div>
+    </div>
+
+    <div id="confirmPaso2" style="display:none">
+      <p style="margin:6px 0">¿Cuántas personas asistirán?</p>
+      <input class="confirm-input" id="cuantos" type="number" min="1" value="2">
+      <div class="btns"><button class="btn solid" id="btnEnviarConf">Enviar confirmación</button></div>
+    </div>
+
+    <div id="confirmFinal" class="estado-msg" style="display:none"></div>
   </section>
 
-  <div class="foot">
-    <span class="script">Te esperamos</span>
-    Familia Pacheco Arguello
-  </div>
+  <div class="foot"><span class="script">Te esperamos</span>Familia Pacheco Arguello</div>
 </main>
 
-<!-- ============================ GENERADOR (para el papá) ============================ -->
+<!-- GENERADOR -->
 <section id="generador">
   <div class="gen-card">
     <h2 class="titulo" style="margin-top:0">Generador de invitaciones</h2>
-    <p class="hint">Escribe el nombre del invitado o familia y cuántos pases le das. Se crea su liga personalizada y un botón para enviarla por WhatsApp.</p>
-    <div class="field">
-      <label for="gNombre">Nombre / familia</label>
-      <input id="gNombre" type="text" placeholder="Ej. Familia Hernández" autocomplete="off">
-    </div>
-    <div class="field">
-      <label for="gPases">Número de pases</label>
-      <input id="gPases" type="number" min="1" value="2">
-    </div>
-    <div class="btns" style="justify-content:flex-start">
-      <button class="btn solid" id="gCrear">Crear invitación</button>
-    </div>
+    <div class="warn" id="genWarn" style="display:none"></div>
+    <p class="hint">Escribe el nombre del invitado o familia y sus pases. Se registra en tu lista y se crea su liga personalizada para enviar por WhatsApp.</p>
+    <div class="field"><label for="gNombre">Nombre / familia</label><input id="gNombre" type="text" placeholder="Ej. Familia Hernández" autocomplete="off"></div>
+    <div class="field"><label for="gPases">Número de pases</label><input id="gPases" type="number" min="1" value="2"></div>
+    <div class="btns" style="justify-content:flex-start"><button class="btn solid" id="gCrear">Crear invitación</button><a class="btn" id="gPanel" target="_blank" rel="noopener">Ver panel de confirmaciones</a></div>
     <div class="out" id="gOut">
       <p class="hint" style="margin:0 0 4px">Liga personalizada:</p>
       <div class="link" id="gLink"></div>
       <div class="btns" style="justify-content:flex-start;margin-top:6px">
         <button class="btn" id="gCopiar">Copiar liga</button>
-        <a class="btn wa" id="gWhats" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2z"/></svg>
-          Enviar por WhatsApp</a>
+        <a class="btn wa" id="gWhats" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2z"/></svg>Enviar por WhatsApp</a>
         <a class="btn" id="gVer" target="_blank" rel="noopener">Vista previa</a>
       </div>
     </div>
   </div>
 </section>
 
+<!-- PANEL -->
+<section id="panel">
+  <div id="pinGate" class="gen-card" style="max-width:360px;margin:40px auto">
+    <h2 class="titulo" style="margin-top:0">Panel</h2>
+    <div class="field"><label for="pin">Contraseña</label><input id="pin" type="password" placeholder="••••"></div>
+    <div class="btns" style="justify-content:flex-start"><button class="btn solid" id="pinBtn">Entrar</button></div>
+  </div>
+  <div id="panelBody" style="display:none">
+    <h2 class="titulo" style="margin-top:0">Confirmaciones · Bautizo de Alondra</h2>
+    <div class="warn" id="panelWarn" style="display:none"></div>
+    <div class="stats" id="stats"></div>
+    <div class="toolbar">
+      <input id="buscar" type="text" placeholder="Buscar por nombre…">
+      <button class="btn mini" id="refrescar">Actualizar</button>
+    </div>
+    <div style="overflow:auto"><table class="tabla" id="tabla"><thead><tr><th>Invitado</th><th>Pases</th><th>Estado</th><th>Asistirán</th><th>Confirmó</th><th></th></tr></thead><tbody id="tbody"></tbody></table></div>
+  </div>
+</section>
+
 <button id="musicBtn" aria-label="Música" title="Música"></button>
 <div class="toast" id="toast"></div>
 
-<!-- ESCUDO (SVG reutilizable) -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <defs>
-    <linearGradient id="shieldFill" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#fbeef1"/>
-    </linearGradient>
-    <g id="crestSvg">
-      <!-- follaje / rosas arriba -->
-      <g stroke="#cfa" fill="none"></g>
-      <g>
-        <ellipse cx="100" cy="30" rx="16" ry="10" fill="#e8a9b8" opacity=".9"/>
-        <ellipse cx="100" cy="30" rx="9" ry="6" fill="#c06b82" opacity=".85"/>
-        <circle cx="78" cy="36" r="8" fill="#f0bfcb"/>
-        <circle cx="122" cy="36" r="8" fill="#f0bfcb"/>
-        <path d="M62 40 q-10 -6 -18 -2 q8 6 18 2z" fill="#a9c3d4"/>
-        <path d="M138 40 q10 -6 18 -2 q-8 6 -18 2z" fill="#a9c3d4"/>
-        <path d="M70 30 q-6 -10 -2 -18 q6 8 2 18z" fill="#bcd0dd"/>
-        <path d="M130 30 q6 -10 2 -18 q-6 8 -2 18z" fill="#bcd0dd"/>
-      </g>
-      <!-- escudo -->
-      <path d="M46 46 Q100 36 154 46 L154 132 Q154 186 100 210 Q46 186 46 132 Z"
-            fill="url(#shieldFill)" stroke="#c9a24b" stroke-width="2.4"/>
-      <path d="M56 56 Q100 48 144 56 L144 130 Q144 178 100 198 Q56 178 56 130 Z"
-            fill="none" stroke="#e4c98a" stroke-width="1.2" opacity=".8"/>
-      <!-- monograma A -->
-      <text x="100" y="150" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif"
-            font-size="96" font-weight="600" fill="#7c9db0">A</text>
-      <!-- ramitas inferiores -->
-      <path d="M100 205 q-14 -4 -22 -14 M100 205 q14 -4 22 -14" stroke="#a9c3d4" stroke-width="2" fill="none" stroke-linecap="round"/>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <linearGradient id="shieldFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#fbeef1"/></linearGradient>
+  <g id="crestSvg">
+    <g>
+      <ellipse cx="100" cy="30" rx="16" ry="10" fill="#e8a9b8" opacity=".9"/><ellipse cx="100" cy="30" rx="9" ry="6" fill="#c06b82" opacity=".85"/>
+      <circle cx="78" cy="36" r="8" fill="#f0bfcb"/><circle cx="122" cy="36" r="8" fill="#f0bfcb"/>
+      <path d="M62 40 q-10 -6 -18 -2 q8 6 18 2z" fill="#a9c3d4"/><path d="M138 40 q10 -6 18 -2 q-8 6 -18 2z" fill="#a9c3d4"/>
+      <path d="M70 30 q-6 -10 -2 -18 q6 8 2 18z" fill="#bcd0dd"/><path d="M130 30 q6 -10 2 -18 q-6 8 -2 18z" fill="#bcd0dd"/>
     </g>
-  </defs>
-</svg>
+    <path d="M46 46 Q100 36 154 46 L154 132 Q154 186 100 210 Q46 186 46 132 Z" fill="url(#shieldFill)" stroke="#c9a24b" stroke-width="2.4"/>
+    <path d="M56 56 Q100 48 144 56 L144 130 Q144 178 100 198 Q56 178 56 130 Z" fill="none" stroke="#e4c98a" stroke-width="1.2" opacity=".8"/>
+    <text x="100" y="150" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="96" font-weight="600" fill="#7c9db0">A</text>
+    <path d="M100 205 q-14 -4 -22 -14 M100 205 q14 -4 22 -14" stroke="#a9c3d4" stroke-width="2" fill="none" stroke-linecap="round"/>
+  </g>
+</defs></svg>
 
 <script>
 /* ============================================================
-   CONFIG  ·  EDITA ESTOS DATOS Y LISTO
+   CONFIG  ·  EDITA ESTOS DATOS
    ============================================================ */
 const CONFIG = {
-  // Tu WhatsApp para recibir confirmaciones. Formato: 52 + 10 dígitos, SIN espacios ni +.
+  // WhatsApp para avisos (respaldo). Formato: 52 + 10 dígitos, sin espacios ni +.
   whatsapp: "522871074899",
 
-  // Fecha y hora de la CEREMONIA (para la cuenta regresiva y el calendario)
   fechaISO: "2026-09-26T12:00:00",
   finISO:   "2026-09-26T18:00:00",
 
-  // Ligas de mapa. Pega aquí el enlace exacto de Google Maps de cada lugar.
-  // (Por defecto abre una búsqueda; reemplázalo por el "pin" exacto para que sea perfecto.)
-  mapaIglesia:  "https://www.google.com/maps/search/?api=1&query=Parroquia+del+Sagrado+Corazon+Tuxtepec+Oaxaca",
-  mapaRecep:    "https://www.google.com/maps/search/?api=1&query=Casona+Salon+de+eventos+Tuxtepec+Oaxaca",
+  mapaIglesia: "https://www.google.com/maps/search/?api=1&query=Parroquia+del+Sagrado+Corazon+Tuxtepec+Oaxaca",
+  mapaRecep:   "https://www.google.com/maps/search/?api=1&query=Casona+Salon+de+eventos+Tuxtepec+Oaxaca",
+  regalo:      "https://www.google.com/maps/search/?api=1&query=Casona+Salon+de+eventos+Tuxtepec+Oaxaca",
 
-  // Mesa de regalos / sugerencias (una liga, o déjalo así para un mensaje)
-  regalo: "https://www.google.com/maps/search/?api=1&query=Casona+Salon+de+eventos+Tuxtepec+Oaxaca",
+  musica: "",
 
-  // (Opcional) Música de fondo: pega la URL de un .mp3 y aparecerá el botón. Déjalo vacío para desactivar.
-  musica: ""
+  // ---- SUPABASE (aquí se guardan las confirmaciones) ----
+  // Pega tu Project URL y tu clave "anon public" (Settings -> API en Supabase).
+  supabase: {
+    url: "https://TU-PROYECTO.supabase.co",
+    key: "TU_ANON_KEY"
+  },
+
+  // Contraseña para abrir el panel (cámbiala).
+  panelPIN: "alondra2026"
 };
 /* ============================================================ */
 
 const $ = s => document.querySelector(s);
 const params = new URLSearchParams(location.search);
-const modoGenerador = params.has("generador") || params.has("admin");
+const BASE = location.origin + location.pathname;
 
-/* ---------- MODO GENERADOR vs INVITACIÓN ---------- */
-if (modoGenerador){
-  $("#sobre").style.display = "none";
-  $("#contenido").style.display = "none";
-  $("#generador").classList.add("show");
-  initGenerador();
-} else {
-  initInvitacion();
-}
+/* ---------- Supabase (por REST, sin librerías) ---------- */
+const SB = CONFIG.supabase;
+function sbOn(){ return SB && SB.url && SB.key && !SB.url.includes("TU-PROYECTO") && !SB.key.includes("TU_ANON"); }
+function sbHeaders(extra){ return Object.assign({apikey:SB.key,Authorization:"Bearer "+SB.key,"Content-Type":"application/json"}, extra||{}); }
+async function sbGet(qs){ const r=await fetch(SB.url+"/rest/v1/invitados?"+qs,{headers:sbHeaders()}); if(!r.ok) throw new Error(await r.text()); return r.json(); }
+async function sbInsert(o){ const r=await fetch(SB.url+"/rest/v1/invitados",{method:"POST",headers:sbHeaders({Prefer:"return=representation"}),body:JSON.stringify(o)}); if(!r.ok) throw new Error(await r.text()); return (await r.json())[0]; }
+async function sbUpdate(id,o){ const r=await fetch(SB.url+"/rest/v1/invitados?id=eq."+id,{method:"PATCH",headers:sbHeaders({Prefer:"return=representation"}),body:JSON.stringify(o)}); if(!r.ok) throw new Error(await r.text()); return (await r.json())[0]; }
 
-function initInvitacion(){
-  // Personalización por URL
+/* ---------- RUTEO ---------- */
+if (params.has("panel")) { arrancarPanel(); }
+else if (params.has("generador")) { arrancarGenerador(); }
+else { arrancarInvitacion(); }
+
+/* ============================ INVITACIÓN ============================ */
+function arrancarInvitacion(){
   const nombre = params.get("nombre");
   const pases  = params.get("pases");
+  const id     = params.get("id");
   if (nombre) $("#nombreInvitado").textContent = decodeURIComponent(nombre);
-  if (pases)  $("#pasesNum").textContent = pases;
+  if (pases){ $("#pasesNum").textContent = pases; $("#cuantos").value = pases; $("#cuantos").max = pases; }
 
-  // Enlaces de mapa / regalo
   $("#mapIglesia").href = CONFIG.mapaIglesia;
   $("#mapRecep").href   = CONFIG.mapaRecep;
   $("#regalo").href     = CONFIG.regalo;
 
-  // Botón de confirmar -> WhatsApp del papá
-  const nom = nombre ? decodeURIComponent(nombre) : "";
-  const pas = pases || $("#pasesNum").textContent;
-  const msg = `Hola, confirmo mi asistencia al bautizo de Alondra 🕊️`
-            + (nom ? `%0AInvitado: ${encodeURIComponent(nom)}` : "")
-            + `%0APases: ${encodeURIComponent(pas)}`;
-  $("#confirmar").href = `https://wa.me/${CONFIG.whatsapp}?text=${msg}`;
+  buildCalendarLinks(); buildMiniCal(); startCountdown();
+  setupSobre(); setupReveal(); setupMusic(); setupPetals();
+  setupConfirmacion(id, nombre ? decodeURIComponent(nombre) : "", pases);
+}
 
-  // Calendario Google + descarga .ics
-  buildCalendarLinks();
-  buildMiniCal();
-  startCountdown();
-  setupSobre();
-  setupReveal();
-  setupMusic();
-  setupPetals();
+function setupConfirmacion(id, nombre, pases){
+  const usaDB = sbOn() && id;
+
+  // Sin base de datos o sin id: respaldo por WhatsApp (comportamiento simple)
+  if (!usaDB){
+    $("#btnAbrirConfirm").addEventListener("click", ()=>{
+      const p = pases || $("#pasesNum").textContent;
+      const msg = "Hola, confirmo mi asistencia al bautizo de Alondra"
+        + (nombre ? "%0AInvitado: "+encodeURIComponent(nombre) : "")
+        + "%0APases: "+encodeURIComponent(p);
+      window.open("https://wa.me/"+CONFIG.whatsapp+"?text="+msg, "_blank");
+    });
+    return;
+  }
+
+  // Con base de datos: revisar si ya confirmó
+  sbGet("select=estado,asistiran&id=eq."+id).then(rows=>{
+    if(rows && rows[0] && rows[0].estado!=="pendiente") mostrarEstado(rows[0]);
+  }).catch(()=>{});
+
+  $("#btnAbrirConfirm").addEventListener("click", ()=>{
+    $("#confirmInicio").style.display="none";
+    $("#confirmPaso1").style.display="block";
+  });
+  $("#btnSi").addEventListener("click", ()=>{
+    $("#confirmPaso1").style.display="none";
+    $("#confirmPaso2").style.display="block";
+  });
+  $("#btnNo").addEventListener("click", ()=> guardar("no_asiste", 0));
+  $("#btnEnviarConf").addEventListener("click", ()=>{
+    const n = parseInt($("#cuantos").value,10) || 1;
+    guardar("confirmado", n);
+  });
+
+  async function guardar(estado, asistiran){
+    $("#btnEnviarConf").disabled = true; $("#btnNo").disabled = true;
+    try{
+      await sbUpdate(id, {estado, asistiran, fecha_confirmacion:new Date().toISOString()});
+      mostrarEstado({estado, asistiran});
+    }catch(e){
+      toast("No se pudo guardar. Revisa tu conexión.");
+      $("#btnEnviarConf").disabled = false; $("#btnNo").disabled = false;
+    }
+  }
+  function mostrarEstado(row){
+    $("#confirmInicio").style.display="none";
+    $("#confirmPaso1").style.display="none";
+    $("#confirmPaso2").style.display="none";
+    const el = $("#confirmFinal"); el.style.display="block";
+    if(row.estado==="confirmado")
+      el.innerHTML = "🕊️ ¡Gracias"+(nombre?", <b>"+nombre+"</b>":"")+"! Tu asistencia quedó registrada.<br>Asistirán: <b>"+row.asistiran+"</b> persona(s).";
+    else
+      el.innerHTML = "Gracias por avisarnos"+(nombre?", <b>"+nombre+"</b>":"")+". Te vamos a extrañar. 💐";
+  }
 }
 
 /* ---------- SOBRE ---------- */
@@ -514,115 +438,148 @@ function startCountdown(){
   const tick = () => {
     const diff = target - Date.now();
     if (diff <= 0){ $("#count").innerHTML = '<div class="u" style="min-width:auto;padding:14px 22px"><div class="n">¡Hoy!</div></div>'; return; }
-    const d = Math.floor(diff/864e5),
-          h = Math.floor(diff%864e5/36e5),
-          m = Math.floor(diff%36e5/6e4),
-          s = Math.floor(diff%6e4/1e3);
-    $("#dd").textContent = d;
-    $("#hh").textContent = String(h).padStart(2,"0");
-    $("#mm").textContent = String(m).padStart(2,"0");
-    $("#ss").textContent = String(s).padStart(2,"0");
+    const d=Math.floor(diff/864e5),h=Math.floor(diff%864e5/36e5),m=Math.floor(diff%36e5/6e4),s=Math.floor(diff%6e4/1e3);
+    $("#dd").textContent=d; $("#hh").textContent=String(h).padStart(2,"0"); $("#mm").textContent=String(m).padStart(2,"0"); $("#ss").textContent=String(s).padStart(2,"0");
     requestAnimationFrame(()=>setTimeout(tick,1000));
   };
   tick();
 }
 
-/* ---------- MINI CALENDARIO (Sept 2026) ---------- */
+/* ---------- MINI CALENDARIO ---------- */
 function buildMiniCal(){
-  const target = new Date(CONFIG.fechaISO);
-  const y = target.getFullYear(), mth = target.getMonth(), day = target.getDate();
-  const nombreMes = target.toLocaleDateString("es-MX",{month:"long"});
-  const first = new Date(y,mth,1).getDay();          // 0=Dom
-  const offset = (first+6)%7;                          // semana inicia Lunes
-  const dim = new Date(y,mth+1,0).getDate();
-  let html = `<div style="text-align:center;color:var(--rose);font-family:'Parisienne',cursive;font-size:1.6rem;margin-bottom:6px">${nombreMes} ${y}</div>`;
-  html += "<table><tr><th>L</th><th>M</th><th>M</th><th>J</th><th>V</th><th>S</th><th>D</th></tr><tr>";
-  for(let i=0;i<offset;i++) html += "<td></td>";
-  let col = offset;
-  for(let dd=1;dd<=dim;dd++){
-    html += `<td class="${dd===day?'on':''}">${dd}</td>`;
-    col++;
-    if(col===7 && dd<dim){ html += "</tr><tr>"; col=0; }
-  }
-  html += "</tr></table>";
-  $("#cal").innerHTML = html;
+  const target=new Date(CONFIG.fechaISO), y=target.getFullYear(), mth=target.getMonth(), day=target.getDate();
+  const nombreMes=target.toLocaleDateString("es-MX",{month:"long"});
+  const offset=(new Date(y,mth,1).getDay()+6)%7, dim=new Date(y,mth+1,0).getDate();
+  let html='<div style="text-align:center;color:var(--rose);font-family:\'Parisienne\',cursive;font-size:1.6rem;margin-bottom:6px">'+nombreMes+" "+y+"</div>";
+  html+="<table><tr><th>L</th><th>M</th><th>M</th><th>J</th><th>V</th><th>S</th><th>D</th></tr><tr>";
+  for(let i=0;i<offset;i++) html+="<td></td>";
+  let col=offset;
+  for(let dd=1;dd<=dim;dd++){ html+='<td class="'+(dd===day?'on':'')+'">'+dd+"</td>"; col++; if(col===7&&dd<dim){html+="</tr><tr>";col=0;} }
+  html+="</tr></table>"; $("#cal").innerHTML=html;
 }
 
-/* ---------- CALENDARIO (Google + .ics) ---------- */
+/* ---------- CALENDARIO GOOGLE ---------- */
 function fmt(iso){ return iso.replace(/[-:]/g,"").replace(".000",""); }
 function buildCalendarLinks(){
-  const start = fmt(CONFIG.fechaISO), end = fmt(CONFIG.finISO);
-  const g = `https://calendar.google.com/calendar/render?action=TEMPLATE`
-    + `&text=${encodeURIComponent("Bautizo de Alondra")}`
-    + `&dates=${start}/${end}`
-    + `&ctz=America/Mexico_City`
-    + `&details=${encodeURIComponent("Ceremonia 12:00 pm · Parroquia del Sagrado Corazón. Recepción 2:00 pm · Casona.")}`
-    + `&location=${encodeURIComponent("Parroquia del Sagrado Corazón")}`;
-  $("#gcal").href = g;
+  const g="https://calendar.google.com/calendar/render?action=TEMPLATE"
+    +"&text="+encodeURIComponent("Bautizo de Alondra")
+    +"&dates="+fmt(CONFIG.fechaISO)+"/"+fmt(CONFIG.finISO)
+    +"&ctz=America/Mexico_City"
+    +"&details="+encodeURIComponent("Ceremonia 12:00 pm · Parroquia del Sagrado Corazón. Recepción 2:00 pm · Casona.")
+    +"&location="+encodeURIComponent("Parroquia del Sagrado Corazón");
+  $("#gcal").href=g;
 }
 
-/* ---------- REVELADO AL SCROLL ---------- */
-function setupReveal(){
-  const io = new IntersectionObserver((es)=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); }}),{threshold:.15});
-  document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
-}
-
-/* ---------- MÚSICA ---------- */
+/* ---------- REVELADO / MÚSICA / PÉTALOS ---------- */
+function setupReveal(){ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}}),{threshold:.15}); document.querySelectorAll(".reveal").forEach(el=>io.observe(el)); }
 function setupMusic(){
   if(!CONFIG.musica) return;
-  const audio = new Audio(CONFIG.musica); audio.loop = true; audio.volume = .5;
-  const btn = $("#musicBtn"); btn.classList.add("show");
-  const onSvg  = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 18V5l10-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/></svg>';
-  const offSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 18V5l10-2v13"/><circle cx="6" cy="18" r="3"/><line x1="3" y1="3" x2="21" y2="21"/></svg>';
-  let on=false; btn.innerHTML=offSvg;
-  btn.addEventListener("click",()=>{ on=!on; if(on){audio.play();btn.innerHTML=onSvg;}else{audio.pause();btn.innerHTML=offSvg;} });
+  const audio=new Audio(CONFIG.musica); audio.loop=true; audio.volume=.5;
+  const btn=$("#musicBtn"); btn.classList.add("show");
+  const on='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 18V5l10-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/></svg>';
+  const off='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 18V5l10-2v13"/><circle cx="6" cy="18" r="3"/><line x1="3" y1="3" x2="21" y2="21"/></svg>';
+  let p=false; btn.innerHTML=off;
+  btn.addEventListener("click",()=>{p=!p; if(p){audio.play();btn.innerHTML=on;}else{audio.pause();btn.innerHTML=off;}});
 }
-
-/* ---------- PÉTALOS ---------- */
 function setupPetals(){
   if(window.matchMedia("(prefers-reduced-motion:reduce)").matches) return;
   const colors=["#e8a9b8","#f0bfcb","#a9c3d4","#f6d9e0"];
   for(let i=0;i<12;i++){
     const p=document.createElement("div"); p.className="petal";
     const size=8+Math.random()*10;
-    p.style.left=Math.random()*100+"vw";
-    p.style.width=size+"px"; p.style.height=size*0.7+"px";
-    p.style.background=colors[i%colors.length];
-    p.style.borderRadius="60% 40% 60% 40%";
-    const dur=10+Math.random()*10, delay=Math.random()*10;
-    p.animate([
-      {transform:`translateY(-10vh) rotate(0deg)`,opacity:0},
-      {opacity:.8,offset:.1},
-      {transform:`translateY(110vh) rotate(${360+Math.random()*360}deg)`,opacity:.2}
-    ],{duration:dur*1000,delay:delay*1000,iterations:Infinity,easing:"linear"});
+    p.style.left=Math.random()*100+"vw"; p.style.width=size+"px"; p.style.height=size*0.7+"px";
+    p.style.background=colors[i%colors.length]; p.style.borderRadius="60% 40% 60% 40%";
+    p.animate([{transform:"translateY(-10vh) rotate(0deg)",opacity:0},{opacity:.8,offset:.1},{transform:"translateY(110vh) rotate("+(360+Math.random()*360)+"deg)",opacity:.2}],
+      {duration:(10+Math.random()*10)*1000,delay:Math.random()*10000,iterations:Infinity,easing:"linear"});
     document.body.appendChild(p);
   }
 }
 
 /* ============================ GENERADOR ============================ */
-function initGenerador(){
-  const base = location.origin + location.pathname;
-  const crear = () => {
-    const nombre = $("#gNombre").value.trim();
-    const pases  = $("#gPases").value || "1";
+function arrancarGenerador(){
+  $("#sobre").style.display="none"; $("#contenido").style.display="none";
+  $("#generador").classList.add("show");
+  $("#gPanel").href = BASE + "?panel";
+  if(!sbOn()){ const w=$("#genWarn"); w.style.display="block"; w.textContent="⚠ Falta configurar Supabase. Las ligas funcionarán, pero las confirmaciones no se guardarán hasta que pongas tu URL y clave."; }
+
+  const crear = async () => {
+    const nombre=$("#gNombre").value.trim(); const pases=parseInt($("#gPases").value,10)||1;
     if(!nombre){ toast("Escribe un nombre"); return; }
-    const link = `${base}?nombre=${encodeURIComponent(nombre)}&pases=${encodeURIComponent(pases)}`;
-    $("#gLink").textContent = link;
-    $("#gVer").href = link;
-    const wamsg = `¡Con mucho cariño te invitamos al bautizo de Alondra! 🕊️%0A`
-      + `${encodeURIComponent(nombre)}, tienes ${encodeURIComponent(pases)} pase(s).%0A`
-      + `Aquí tu invitación: ${encodeURIComponent(link)}`;
-    $("#gWhats").href = `https://wa.me/?text=${wamsg}`;
+    let id="";
+    if(sbOn()){
+      $("#gCrear").disabled=true;
+      try{ const row=await sbInsert({nombre, pases, estado:"pendiente"}); id=row.id; }
+      catch(e){ toast("No se pudo registrar en Supabase"); $("#gCrear").disabled=false; return; }
+      $("#gCrear").disabled=false;
+    }
+    let link=BASE+"?nombre="+encodeURIComponent(nombre)+"&pases="+encodeURIComponent(pases);
+    if(id) link+="&id="+id;
+    $("#gLink").textContent=link; $("#gVer").href=link;
+    const wamsg="¡Con mucho cariño te invitamos al bautizo de Alondra! 🕊️%0A"
+      +encodeURIComponent(nombre)+", tienes "+encodeURIComponent(pases)+" pase(s).%0A"
+      +"Aquí tu invitación: "+encodeURIComponent(link);
+    $("#gWhats").href="https://wa.me/?text="+wamsg;
     $("#gOut").classList.add("show");
+    $("#gNombre").value=""; $("#gNombre").focus();
+    toast(id ? "Invitado registrado ✓" : "Liga creada ✓");
   };
   $("#gCrear").addEventListener("click",crear);
   $("#gNombre").addEventListener("keydown",e=>{ if(e.key==="Enter") crear(); });
-  $("#gCopiar").addEventListener("click",async()=>{
-    try{ await navigator.clipboard.writeText($("#gLink").textContent); toast("Liga copiada ✓"); }
-    catch{ toast("Copia manualmente la liga"); }
-  });
+  $("#gCopiar").addEventListener("click",async()=>{ try{ await navigator.clipboard.writeText($("#gLink").textContent); toast("Liga copiada ✓"); }catch{ toast("Copia manualmente la liga"); } });
 }
-function toast(t){ const el=$("#toast"); el.textContent=t; el.classList.add("show"); setTimeout(()=>el.classList.remove("show"),1800); }
+
+/* ============================ PANEL ============================ */
+function arrancarPanel(){
+  $("#sobre").style.display="none"; $("#contenido").style.display="none";
+  $("#panel").classList.add("show");
+  const entrar = () => {
+    if($("#pin").value === CONFIG.panelPIN){ $("#pinGate").style.display="none"; $("#panelBody").style.display="block"; cargar(); }
+    else toast("Contraseña incorrecta");
+  };
+  $("#pinBtn").addEventListener("click",entrar);
+  $("#pin").addEventListener("keydown",e=>{ if(e.key==="Enter") entrar(); });
+  $("#refrescar").addEventListener("click",cargar);
+  $("#buscar").addEventListener("input",pintarTabla);
+
+  let datos=[];
+  async function cargar(){
+    if(!sbOn()){ $("#panelWarn").style.display="block"; $("#panelWarn").textContent="Falta configurar Supabase en el archivo."; return; }
+    try{ datos = await sbGet("select=*&order=created_at.desc"); pintarStats(); pintarTabla(); }
+    catch(e){ $("#panelWarn").style.display="block"; $("#panelWarn").textContent="No se pudo leer la lista. Revisa Supabase y las políticas (RLS)."; }
+  }
+  function pintarStats(){
+    const conf=datos.filter(d=>d.estado==="confirmado");
+    const pend=datos.filter(d=>d.estado==="pendiente");
+    const no=datos.filter(d=>d.estado==="no_asiste");
+    const personas=conf.reduce((s,d)=>s+(d.asistiran||0),0);
+    const pasesTot=datos.reduce((s,d)=>s+(d.pases||0),0);
+    $("#stats").innerHTML =
+      stat("big", personas, "Personas asistirán")
+      + stat("", datos.length, "Invitados")
+      + stat("", conf.length, "Confirmados")
+      + stat("", pend.length, "Pendientes")
+      + stat("", no.length, "No asisten")
+      + stat("", pasesTot, "Pases enviados");
+  }
+  function stat(cls,n,l){ return '<div class="stat '+cls+'"><div class="n">'+n+'</div><div class="l">'+l+'</div></div>'; }
+  function pintarTabla(){
+    const q=($("#buscar").value||"").toLowerCase();
+    const rows=datos.filter(d=>(d.nombre||"").toLowerCase().includes(q));
+    $("#tbody").innerHTML = rows.map(d=>{
+      const badge = d.estado==="confirmado" ? '<span class="badge ok">Confirmado</span>'
+                  : d.estado==="no_asiste" ? '<span class="badge no">No asiste</span>'
+                  : '<span class="badge pend">Pendiente</span>';
+      const fecha = d.fecha_confirmacion ? new Date(d.fecha_confirmacion).toLocaleString("es-MX",{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"}) : "—";
+      const link = BASE+"?nombre="+encodeURIComponent(d.nombre)+"&pases="+encodeURIComponent(d.pases)+"&id="+d.id;
+      const wamsg="¡Con mucho cariño te invitamos al bautizo de Alondra! 🕊️%0A"+encodeURIComponent(d.nombre)+", tienes "+d.pases+" pase(s).%0AAquí tu invitación: "+encodeURIComponent(link);
+      return "<tr><td>"+escapeHtml(d.nombre)+"</td><td>"+d.pases+"</td><td>"+badge+"</td><td>"+(d.asistiran!=null?d.asistiran:"—")+"</td><td>"+fecha+"</td>"
+        +'<td><div class="acts"><a class="btn wa mini" target="_blank" rel="noopener" href="https://wa.me/?text='+wamsg+'">Reenviar</a><a class="btn mini" target="_blank" rel="noopener" href="'+link+'">Ver</a></div></td></tr>';
+    }).join("") || '<tr><td colspan="6" style="text-align:center;color:var(--ink-soft);padding:20px">Aún no hay invitados. Créalos desde el generador.</td></tr>';
+  }
+  function escapeHtml(s){ return (s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+}
+
+function toast(t){ const el=$("#toast"); el.textContent=t; el.classList.add("show"); setTimeout(()=>el.classList.remove("show"),1900); }
 </script>
 </body>
 </html>

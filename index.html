@@ -134,7 +134,8 @@
   .estado-msg b{color:var(--gold)}
 
   .foot{text-align:center;color:var(--ink-soft);font-size:.95rem;padding:24px 16px 60px}
-  .foot .script{color:var(--gold);font-size:2rem;display:block}
+  .despedida{display:block;font-family:"Cormorant Garamond",serif;color:var(--ink);font-size:1.5rem;margin-bottom:.15em}
+  .familia{display:block;text-transform:uppercase;letter-spacing:.14em;font-weight:600;font-size:1.4rem;font-family:"Cormorant Garamond",serif;color:var(--gold)}
   .foot img{margin-bottom:6px}
 
   .petal{position:fixed;top:-30px;z-index:1;pointer-events:none;opacity:.7}
@@ -179,12 +180,12 @@
 
   @media (max-width:420px){body{font-size:17px}.card{padding:34px 20px}.count .u{min-width:64px}}
   @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
-  .alondra,.intro-name .script,h2.titulo,.saludo .nombre-inv,.foot .script,.sub-baut,.pases-num,.venue{
+  .alondra,.intro-name .script,h2.titulo,.saludo .nombre-inv,.familia,.sub-baut,.pases-num,.venue{
     background-image:linear-gradient(100deg,#a9822f 0%,#e7cd86 20%,#fff6da 40%,#dcbf72 56%,#b8912f 74%,#f7e6b4 100%);
     background-size:220% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
     filter:drop-shadow(0 1px 4px rgba(214,176,86,.55));animation:goldshine 11s linear infinite}
   @keyframes goldshine{to{background-position:-220% center}}
-  @media (prefers-reduced-motion:reduce){.alondra,.intro-name .script,h2.titulo,.saludo .nombre-inv,.foot .script,.sub-baut,.pases-num,.venue{animation:none}}
+  @media (prefers-reduced-motion:reduce){.alondra,.intro-name .script,h2.titulo,.saludo .nombre-inv,.familia,.sub-baut,.pases-num,.venue{animation:none}}
   .venue{font-family:"Cormorant Garamond",serif;font-weight:600;text-transform:uppercase;letter-spacing:.18em;font-size:2.2rem;color:var(--gold);text-align:center;margin:.15em 0 .05em}
   .venue-sub{display:block;font-style:italic;color:var(--ink-soft);font-size:1.05rem;margin-bottom:.2em}
 </style>
@@ -287,7 +288,7 @@
     <div id="confirmFinal" class="estado-msg" style="display:none"></div>
   </section>
 
-  <div class="foot"><div class="ornament md"></div><span class="script">Te esperamos</span>Familia Pacheco Arguello</div>
+  <div class="foot"><div class="ornament md"></div><span class="despedida">Te esperamos</span><span class="familia">Familia Pacheco Arguello</span></div>
 </main>
 
 <!-- GENERADOR -->
